@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,14 +39,14 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
-    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="hibernate.connection.url">jdbc:derby://localhost:1527/collectionmanager</property>
-    <property name="hibernate.connection.username">nbuser</property>
-    <property name="hibernate.connection.password">nbuser</property>
-    <property name="hibernate.show_sql">true</property>
-    <mapping resource="collectionmanager/entity/CollectionItem.hbm.xml"/>
-  </session-factory>
-</hibernate-configuration>
+<hibernate-mapping>
+    <class name="collectionmanager.entity.CollectionItem" table="COLLECTION">
+        <id name="id" type="int" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="item_name" type="string" />
+        <property name="purchaseDate" column="purchase_date" type="java.util.Date" />
+        <property name="location" column="location" type="int" />
+        <property name="isLent" column="is_lent" type="boolean" />
+    </class>
+</hibernate-mapping>
