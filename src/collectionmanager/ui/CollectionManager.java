@@ -5,6 +5,14 @@
  */
 package collectionmanager.ui;
 
+import collectionmanager.entity.CollectionItem;
+import collectionmanager.db.DbOperations;
+
+import java.util.List;
+import java.util.Vector;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author michalrudzki
@@ -18,6 +26,42 @@ public class CollectionManager extends javax.swing.JFrame
     public CollectionManager()
     {
         initComponents();
+        displayCollection(DbOperations.readCollection());
+    }
+    
+    private void displayCollection(List displayList)
+    {
+        Vector<String> tableHeaders = new Vector<String>();
+        Vector tableData = new Vector();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+        
+        tableHeaders.add("ID");
+        tableHeaders.add("Name");
+        tableHeaders.add("Purchase date");
+        tableHeaders.add("Location");
+        tableHeaders.add("");
+        
+        for (Object o : displayList)
+        {
+            CollectionItem item = (CollectionItem) o;
+            Vector<Object> oneRow = new Vector<Object>();
+            
+            String available;
+            if (!item.isIsLent())
+                available = "available";
+            else
+                available = "";
+            
+            oneRow.add(item.getId());
+            oneRow.add(item.getName());
+            oneRow.add(df.format(item.getPurchaseDate()));
+            oneRow.add(item.getLocation());
+            oneRow.add(available);
+            
+            tableData.add(oneRow);
+        }
+        
+        collectionTable.setModel(new DefaultTableModel(tableData, tableHeaders));
     }
 
     /**
@@ -56,25 +100,28 @@ public class CollectionManager extends javax.swing.JFrame
             },
             new String []
             {
-                "ID", "Name", "Purchase date", "Location", ""
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex)
-            {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(collectionTable);
 
         searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         clearButton.setText("Clear");
+        clearButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Delete");
 
@@ -90,27 +137,28 @@ public class CollectionManager extends javax.swing.JFrame
                 .addContainerGap(84, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(55, 55, 55)
-                                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(searchButton)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(clearButton))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(58, 58, 58)))))
+                                .addGap(55, 55, 55)
+                                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(searchButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(clearButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58)))
                         .addGap(64, 64, 64))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(200, 200, 200))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(275, Short.MAX_VALUE)
@@ -119,7 +167,7 @@ public class CollectionManager extends javax.swing.JFrame
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
@@ -143,6 +191,25 @@ public class CollectionManager extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
+    {//GEN-HEADEREND:event_searchButtonActionPerformed
+        if (!searchField.getText().trim().equals(""))
+        {
+            String search = searchField.getText().trim();
+            List searchList = DbOperations.searchCollection(search);
+            
+            displayCollection(searchList);
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearButtonActionPerformed
+    {//GEN-HEADEREND:event_clearButtonActionPerformed
+        searchField.setText("");
+        
+        List wholeCollection = DbOperations.readCollection();
+        displayCollection(wholeCollection);
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
      * @param args the command line arguments
