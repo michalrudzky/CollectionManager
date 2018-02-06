@@ -10,7 +10,6 @@ import collectionmanager.entity.CollectionItem;
 import collectionmanager.util.HibernateUtil;
 import java.util.Date;
 import java.util.List;
-import java.util.Iterator;
 import org.hibernate.HibernateException; 
 import org.hibernate.Session; 
 import org.hibernate.Transaction;
@@ -18,7 +17,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Query;
 
 /**
- *
+ * Class to perform database operations.
  * @author michalrudzki
  */
 public class DbOperations
@@ -85,7 +84,40 @@ public class DbOperations
         try
         {
             tx = session.beginTransaction();
-            Query query = session.createQuery("from COLLECTION");
+            Query query = session.createQuery("from CollectionItem");
+            collection = query.list();
+            tx.commit();
+        }
+        catch (HibernateException e)
+        {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        }
+        finally
+        {
+            session.close();
+        }
+        
+        return collection;
+    }
+    
+    /**
+     * Searches for specified items in the collection.
+     * @param searchName name to be found
+     * @return List of search results.
+     */
+    public static List searchCollection(String searchName)
+    {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        List collection = null;
+        
+        try
+        {
+            tx = session.beginTransaction();
+            Query query = session.createQuery("from CollectionItem i where i.name like '" +
+                    searchName + "%'");
             collection = query.list();
             tx.commit();
         }
