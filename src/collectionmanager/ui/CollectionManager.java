@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
+ * Main GUI window
  * @author michalrudzki
  */
 public class CollectionManager extends javax.swing.JFrame
@@ -126,6 +126,13 @@ public class CollectionManager extends javax.swing.JFrame
         deleteButton.setText("Delete");
 
         addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                addButtonActionPerformed(evt);
+            }
+        });
 
         editButton.setText("Edit");
 
@@ -210,6 +217,13 @@ public class CollectionManager extends javax.swing.JFrame
         List wholeCollection = DbOperations.readCollection();
         displayCollection(wholeCollection);
     }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addButtonActionPerformed
+    {//GEN-HEADEREND:event_addButtonActionPerformed
+        // open a new AddItem window
+        new AddItem().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_addButtonActionPerformed
 
     /**
      * @param args the command line arguments
