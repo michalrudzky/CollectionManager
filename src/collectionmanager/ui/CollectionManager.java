@@ -124,6 +124,13 @@ public class CollectionManager extends javax.swing.JFrame
         });
 
         deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener()
@@ -224,6 +231,12 @@ public class CollectionManager extends javax.swing.JFrame
         new AddItem().setVisible(true);
         dispose();
     }//GEN-LAST:event_addButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_deleteButtonActionPerformed
+    {//GEN-HEADEREND:event_deleteButtonActionPerformed
+        new DeleteItem().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments

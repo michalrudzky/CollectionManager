@@ -5,7 +5,6 @@
  */
 package collectionmanager.ui;
 
-import collectionmanager.entity.CollectionItem;
 import collectionmanager.db.DbOperations;
 import java.util.Date;
 
