@@ -142,6 +142,13 @@ public class CollectionManager extends javax.swing.JFrame
         });
 
         editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -237,6 +244,12 @@ public class CollectionManager extends javax.swing.JFrame
         new DeleteItem().setVisible(true);
         dispose();
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_editButtonActionPerformed
+    {//GEN-HEADEREND:event_editButtonActionPerformed
+        new EditItem().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_editButtonActionPerformed
 
     /**
      * @param args the command line arguments

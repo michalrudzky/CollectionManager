@@ -72,6 +72,42 @@ public class DbOperations
     }
     
     /**
+     * Edits an existing collection item.
+     * @param ID ID of the item to change
+     * @param name Name of the item to change
+     * @param location Location of the item to change
+     * @param purchaseDate Purchase date of the item to change
+     * @param lent Boolean value expressing if the item is lent
+     */
+    public static void editItem(int ID, String name, int location, Date purchaseDate, boolean lent)
+    {
+        Session session = factory.openSession();
+        Transaction tx = null;
+        
+        try
+        {
+            tx = session.beginTransaction();
+            CollectionItem item = (CollectionItem) session.get(CollectionItem.class, ID);
+            item.setName(name);
+            item.setLocation(location);
+            item.setPurchaseDate(purchaseDate);
+            item.setIsLent(lent);
+            session.update(item);
+            tx.commit();
+        }
+        catch (HibernateException e)
+        {
+            if (tx != null)
+                tx.rollback();
+            e.printStackTrace();
+        }
+        finally
+        {
+            session.close();
+        }
+    }
+    
+    /**
      * Returns a list of all collection items.
      * @return List of all collection items.
      */
