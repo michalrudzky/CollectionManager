@@ -200,11 +200,32 @@ public class AddItem extends javax.swing.JFrame
             return;
         }
         
-        String name = nameField.getText().trim();
-        int location = Integer.parseInt(locationField.getText().trim());
         String yearStr = (String) yearChoice.getSelectedItem();
         String monthStr = (String) monthChoice.getSelectedItem();
         String dayStr = (String) dayChoice.getSelectedItem();
+        
+        // Check for non-existing dates
+        Integer yearInt = Integer.parseInt(yearStr);
+        int yearVal = yearInt.intValue();
+        if (yearVal % 4 != 0 && monthStr.equals("2") && dayStr.equals("29"))
+        {
+            displayError();
+            return;
+        }
+        if (monthStr.equals("2") && ( dayStr.equals("30") || dayStr.equals("31")))
+        {
+            displayError();
+            return;
+        }
+        if (dayStr.equals("31") && ( monthStr.equals("4") || monthStr.equals("6") ||
+                monthStr.equals("9") || monthStr.equals("11")))
+        {
+            displayError();
+            return;
+        }
+        
+        String name = nameField.getText().trim();
+        int location = Integer.parseInt(locationField.getText().trim());
         int year = Integer.parseInt(yearStr) - 1900;
         int month = Integer.parseInt(monthStr) - 1;
         int day = Integer.parseInt(dayStr);

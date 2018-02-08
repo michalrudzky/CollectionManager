@@ -269,7 +269,14 @@ public class EditItem extends javax.swing.JFrame
         String dayStr = (String) dayChoice.getSelectedItem();
         
         // Check for non-existing dates
-        if (monthStr.equals("2") && ( dayStr.equals("29") || dayStr.equals("30") || dayStr.equals("31")))
+        Integer yearInt = Integer.parseInt(yearStr);
+        int yearVal = yearInt.intValue();
+        if (yearVal % 4 != 0 && monthStr.equals("2") && dayStr.equals("29"))
+        {
+            displayError();
+            return;
+        }
+        if (monthStr.equals("2") && ( dayStr.equals("30") || dayStr.equals("31")))
         {
             displayError();
             return;
