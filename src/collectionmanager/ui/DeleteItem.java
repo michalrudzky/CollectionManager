@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
 /**
- *
+ * GUI window for deleting items from the collection.
  * @author michalrudzki
  */
 public class DeleteItem extends javax.swing.JFrame
 {
 
     /**
-     * Creates new form DeleteItem
+     * Creates new window for deleting items.
      */
     public DeleteItem()
     {
@@ -27,6 +27,9 @@ public class DeleteItem extends javax.swing.JFrame
         fillList();
     }
     
+    /**
+     * Populates the dropdown list with names of all collection items.
+     */
     private void fillList()
     {
         List itemsList = DbOperations.readCollection();
@@ -117,12 +120,18 @@ public class DeleteItem extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Closes the current window and opens the main window.
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelButtonActionPerformed
     {//GEN-HEADEREND:event_cancelButtonActionPerformed
         dispose();
         new CollectionManager().setVisible(true);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Performs the deleting item operation.
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_okButtonActionPerformed
     {//GEN-HEADEREND:event_okButtonActionPerformed
         // TODO add your handling code here:

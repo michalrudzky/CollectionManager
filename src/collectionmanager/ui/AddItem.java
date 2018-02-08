@@ -9,25 +9,33 @@ import collectionmanager.db.DbOperations;
 import java.util.Date;
 
 /**
- *
+ * GUI window for adding new items to the collection.
  * @author michalrudzki
  */
 public class AddItem extends javax.swing.JFrame
 {
         
     /**
-     * Creates new form AddItem
+     * Creates new window for adding items.
      */
     public AddItem()
     {
         initComponents();
     }
     
+    /**
+     * Displays error message.
+     */
     private void displayError()
     {
         errorLabel.setText("Inappropriate data.");
     }
     
+    /**
+     * Checks if a given string can be converted into a whole number.
+     * @param input string to check
+     * @return true if conversion possible, false otherwise
+     */
     private boolean tryParseInt(String input)
     {
         try
@@ -170,6 +178,9 @@ public class AddItem extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Performs adding item operation.
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_okButtonActionPerformed
     {//GEN-HEADEREND:event_okButtonActionPerformed
         // Check the data
@@ -204,6 +215,9 @@ public class AddItem extends javax.swing.JFrame
         new CollectionManager().setVisible(true);
     }//GEN-LAST:event_okButtonActionPerformed
 
+    /**
+     * Closes the current window and opens the main window.
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelButtonActionPerformed
     {//GEN-HEADEREND:event_cancelButtonActionPerformed
         // Close the window

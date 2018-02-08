@@ -21,7 +21,7 @@ public class CollectionManager extends javax.swing.JFrame
 {
 
     /**
-     * Creates new form CollectionManager
+     * Creates new main GUI window.
      */
     public CollectionManager()
     {
@@ -29,6 +29,10 @@ public class CollectionManager extends javax.swing.JFrame
         displayCollection(DbOperations.readCollection());
     }
     
+    /***
+     * Displays the collection's contents in the table.
+     * @param displayList list of items to be displayed
+     */
     private void displayCollection(List displayList)
     {
         Vector<String> tableHeaders = new Vector<String>();
@@ -213,6 +217,7 @@ public class CollectionManager extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_searchButtonActionPerformed
     {//GEN-HEADEREND:event_searchButtonActionPerformed
         if (!searchField.getText().trim().equals(""))

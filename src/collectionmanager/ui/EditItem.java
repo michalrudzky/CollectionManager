@@ -20,7 +20,7 @@ public class EditItem extends javax.swing.JFrame
 {
 
     /**
-     * Creates new form EditItem
+     * Creates new GUI window for editing collection items.
      */
     public EditItem()
     {
@@ -28,6 +28,9 @@ public class EditItem extends javax.swing.JFrame
         fillList();
     }
     
+    /**
+     * Populates the dropdown list with names of all collection items.
+     */
     private void fillList()
     {
         List itemsList = DbOperations.readCollection();
@@ -42,11 +45,19 @@ public class EditItem extends javax.swing.JFrame
         choiceList.setModel(new DefaultComboBoxModel(namesList.toArray()));
     }
     
+    /**
+     * Displays error message.
+     */
     private void displayError()
     {
         errorLabel.setText("Inappropriate data.");
     }
     
+    /**
+     * Checks if a given string can be converted into a whole number.
+     * @param input string to check
+     * @return true if conversion possible, false otherwise
+     */
     private boolean tryParseInt(String input)
     {
         try
@@ -222,12 +233,18 @@ public class EditItem extends javax.swing.JFrame
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Closes the current window and opens the main window.
+     */
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelButtonActionPerformed
     {//GEN-HEADEREND:event_cancelButtonActionPerformed
         dispose();
         new CollectionManager().setVisible(true);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    /**
+     * Performs the editing item operation.
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_okButtonActionPerformed
     {//GEN-HEADEREND:event_okButtonActionPerformed
         // Check the input data
@@ -307,6 +324,9 @@ public class EditItem extends javax.swing.JFrame
         new CollectionManager().setVisible(true);
     }//GEN-LAST:event_okButtonActionPerformed
 
+    /**
+     * Populates the text fields with data from the chosen item.
+     */
     private void selectButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_selectButtonActionPerformed
     {//GEN-HEADEREND:event_selectButtonActionPerformed
         String selectedName = (String) choiceList.getSelectedItem();
