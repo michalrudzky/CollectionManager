@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 import collectionmanager.db.DbOperations;
 import collectionmanager.entity.CollectionItem;
+import java.awt.Color;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 
@@ -50,7 +51,7 @@ public class EditItem extends javax.swing.JFrame
      */
     private void displayError()
     {
-        errorLabel.setText("Inappropriate data.");
+        errorLabel.setText("Ivalid data.");
     }
     
     /**
@@ -146,6 +147,8 @@ public class EditItem extends javax.swing.JFrame
                 selectButtonActionPerformed(evt);
             }
         });
+
+        errorLabel.setForeground(Color.RED);
 
         lentLabel.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         lentLabel.setText("Lent");

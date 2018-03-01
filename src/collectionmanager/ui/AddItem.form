@@ -245,6 +245,9 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="errorLabel">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="errorLabel.setForeground(Color.RED);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="okButton">
       <Properties>
